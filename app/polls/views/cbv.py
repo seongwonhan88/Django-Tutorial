@@ -13,7 +13,7 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        return super().objects.order_by('-pub_date')[:5]
+        return super().get_queryset().order_by('-pub_date')[:5]
 
 class DetailView(generic.DeleteView):
     model = Question
