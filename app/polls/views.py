@@ -34,8 +34,17 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    response = "you're looking at the results of question %s."
-    return HttpResponse(response % question_id)
+
+    # question_id에 해당하는 Question 인스턴스를 redner 함수의 context로 전달
+    # template 는 'polls/results.html'을 사용
+    # Template에서는 전달받은 Question 인스턴스에 속하는 Choice 목록을 순회하며 보여줌
+    # 이떄 각 choice 아이템들의 "choice_text' 및 votes 속성값도 같이 출력
+
+    question = get_object_or_404(Question, pk=question_id)
+    context = {
+        'question': question,
+    }
+    return render(request, 'polls/results.html', context)
 
 
 def vote(request, question_id):
